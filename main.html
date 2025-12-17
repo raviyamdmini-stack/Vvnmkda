@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RAVIYA-MD MINI BOT</title>
+  <style>
+    body { background:#000;color:#0f0;font-family:monospace;text-align:center }
+    button { padding:10px 20px;margin-top:10px }
+  </style>
+</head>
+<body>
+
+<h2>𝗥𝗔𝗩𝗜𝗬𝗔-𝗠𝗗 𝗠𝗜𝗡𝗜 𝗕𝗢𝗧</h2>
+<p>Created by Pamudina Ravihara</p>
+<p>☎ Enter your number with country code</p>
+
+<input id="num" placeholder="9477xxxxxxx">
+<br>
+<button onclick="pair()">Submit</button>
+
+<p id="res">Please wait a while...</p>
+
+<div class="info-container">
+  <div class="info-item">
+    ⏱ Time: <span id="uptime">00:00:00</span>
+  </div>
+</div>
+
+<script>
+async function pair(){
+  const n=document.getElementById("num").value;
+  const r=await fetch("/pair?number="+n);
+  const j=await r.json();
+  document.getElementById("res").innerText="PAIR CODE: "+j.code;
+}
+let s=0;
+setInterval(()=>{
+  s++;
+  document.getElementById("uptime").innerText=
+    new Date(s*1000).toISOString().substr(11,8);
+},1000);
+</script>
+
+</body>
+</html>
